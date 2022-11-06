@@ -1,31 +1,40 @@
-import { Container, Separator, ButtonArea } from "./styled";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import {
+  Container,
+  Separator,
+  ButtonArea,
+  CustomButtom as Button,
+} from './styled';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import User from "../../components/User";
+import User from '../../components/User';
+import SiteIcon from '../../components/SiteIcon';
+import { mappedTabRoute, Page } from '../../model/pages';
 
 export default function Topbar() {
   let nav = useNavigate();
+  let location = useLocation();
 
-  const goTo = (route: "ABOUT" | "HOME") => {
-    switch (route) {
-      default:
-      case "HOME":
-        nav("/");
-        break;
-      case "ABOUT":
-        nav("/about");
-    }
+  const goTo = (route: Page) => {
+    nav(mappedTabRoute[route].path);
   };
 
   return (
     <Container>
       <ButtonArea>
-        <Button onClick={() => goTo("HOME")}>Início</Button>
-        <Separator />
-        <Button onClick={() => goTo("ABOUT")}>Sobre</Button>
-      </ButtonArea>
+        <SiteIcon />
 
+        <Separator first />
+
+        {Object.entries(mappedTabRoute).map(([entry, { name, path }]) => [
+          <Button
+            selected={location.pathname === path}
+            onClick={() => goTo(entry as Page)}
+          >
+            {name}
+          </Button>,
+          <Separator />,
+        ])}
+      </ButtonArea>
       <User />
     </Container>
   );

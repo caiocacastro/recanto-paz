@@ -1,5 +1,5 @@
-import { Container } from "./styled";
+import { Container } from '../styled';
 
 export default function Home() {
-  return <Container>HOME</Container>;
+  return <Container>Pagina inicial do sistema</Container>;
 }
