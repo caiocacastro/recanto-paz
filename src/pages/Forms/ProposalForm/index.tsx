@@ -68,6 +68,34 @@ export default function ProposalForm({
               <FormHelperText>{errors.forma_pagamento}</FormHelperText>
             )}
           </FormControl>
+
+          {values.forma_pagamento === 'parcelado' && (
+            <TextField
+              id="parcelamento"
+              name="parcelamento"
+              label="Número de parcelas"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.parcelamento}
+              error={Boolean(errors.parcelamento)}
+              helperText={errors.parcelamento && errors.parcelamento}
+            />
+          )}
+
+          <TextField
+            id="valor"
+            name="valor"
+            label={`Valor ${
+              values.forma_pagamento === 'parcelado'
+                ? 'das parcelas'
+                : 'da proposta'
+            }`}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.valor}
+            error={Boolean(errors.valor)}
+            helperText={errors.valor && errors.valor}
+          />
         </FormSubSection>
       </FormSection>
 
