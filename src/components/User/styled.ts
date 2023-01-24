@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { Theme } from '../../model/style';
 
 export const Container = styled.div`
   display: flex;
@@ -17,4 +18,9 @@ export const Container = styled.div`
 export const Component = styled.div`
   margin: 0 5px;
   font-weight: bold;
+  color: ${Theme.primaryLightColor};
+
+  > span > svg {
+    color: ${Theme.primaryLightColor};
+  }
 `;

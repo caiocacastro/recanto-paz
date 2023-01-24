@@ -6,7 +6,7 @@ import {
 import { FormType } from '../../model/forms';
 
 type State = {
-  form: FormType;
+  form?: FormType;
 };
 
 const initialState: State = {

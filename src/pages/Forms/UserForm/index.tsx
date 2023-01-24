@@ -1,38 +1,20 @@
-import React from 'react';
 import {
   FormControl,
+  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from '@mui/material';
-import { Profiles } from '../../../model/forms';
+import { FormProps, Profiles, UserFields } from '../../../model/forms';
 import { FormSection, FormSubSection, Separator } from '../styled';
-import { FormikHandlers } from 'formik';
-
-type FormProps = {
-  handleChange: any;
-  handleBlur: any;
-  values: UserFields;
-};
-
-type UserFields = {
-  nome: string;
-  telefone: string;
-  cpfcnpj: string;
-  endereco: string;
-  cep: string;
-  cidade: string;
-  estado: string;
-  nascimento: string;
-  perfil: string;
-};
 
 export default function UserForm({
   handleChange,
   handleBlur,
   values,
-}: FormProps) {
+  errors,
+}: FormProps<UserFields>) {
   return (
     <>
       <FormSection>
@@ -44,6 +26,8 @@ export default function UserForm({
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.nome}
+            error={Boolean(errors.nome)}
+            helperText={errors.nome && errors.nome}
           />
 
           <TextField
@@ -52,6 +36,8 @@ export default function UserForm({
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.cpfcnpj}
+            error={Boolean(errors.cpfcnpj)}
+            helperText={errors.cpfcnpj && errors.cpfcnpj}
           />
 
           <TextField
@@ -60,6 +46,8 @@ export default function UserForm({
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.nascimento}
+            error={Boolean(errors.nascimento)}
+            helperText={errors.nascimento && errors.nascimento}
           />
         </FormSubSection>
       </FormSection>
@@ -71,10 +59,13 @@ export default function UserForm({
         <FormSubSection>
           <TextField
             id="telefone"
+            name="telefone"
             label="Telefone"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.telefone}
+            error={Boolean(errors.telefone)}
+            helperText={errors.telefone && errors.telefone}
           />
           <TextField
             id="endereco"
@@ -82,6 +73,8 @@ export default function UserForm({
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.endereco}
+            error={Boolean(errors.endereco)}
+            helperText={errors.endereco && errors.endereco}
           />
           <TextField
             id="cep"
@@ -89,6 +82,8 @@ export default function UserForm({
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.cep}
+            error={Boolean(errors.cep)}
+            helperText={errors.cep && errors.cep}
           />
           <TextField
             id="cidade"
@@ -96,6 +91,8 @@ export default function UserForm({
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.cidade}
+            error={Boolean(errors.cidade)}
+            helperText={errors.cidade && errors.cidade}
           />
           <TextField
             id="estado"
@@ -103,6 +100,8 @@ export default function UserForm({
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.estado}
+            error={Boolean(errors.estado)}
+            helperText={errors.estado && errors.estado}
           />
         </FormSubSection>
       </FormSection>
@@ -112,7 +111,10 @@ export default function UserForm({
       <FormSection>
         <FormSubSection label>Tipo de Usuário</FormSubSection>
         <FormSubSection>
-          <FormControl style={{ width: '200px' }}>
+          <FormControl
+            style={{ width: '200px' }}
+            error={Boolean(errors.perfil)}
+          >
             <InputLabel>Perfil do Usuário</InputLabel>
 
             <Select
@@ -128,6 +130,7 @@ export default function UserForm({
                 </MenuItem>
               ))}
             </Select>
+            {errors.perfil && <FormHelperText>{errors.perfil}</FormHelperText>}
           </FormControl>
         </FormSubSection>
       </FormSection>

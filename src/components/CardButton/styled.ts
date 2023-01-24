@@ -22,7 +22,7 @@ export const Container = styled.div`
 
   :hover {
     transform: scale(1.05);
-    background: ${`linear-gradient(315deg,${Theme.primaryDarkColor}, ${Theme.secondaryDarkColor} 40%)`};
+    background: ${`linear-gradient(315deg,${Theme.primaryDarkColor}EE, ${Theme.secondaryDarkColor}EE 40%)`};
     color: ${Theme.primaryLightColor};
     /* border-color: ${Theme.secondaryLightColor}; */
     /* border-width: 3px; */
@@ -55,10 +55,10 @@ export const OptionIcon = styled.div`
   align-items: center;
   justify-content: center;
 
-  /* border: 1px solid ${Theme.secondaryDarkColor}33; */
+  /* border: 1px solid ${Theme.secondaryLightColor}33; */
   > svg {
     padding: 30px;
-    background-color: ${Theme.primaryDarkColor}22;
+    background-color: ${Theme.primaryLightColor}22;
     border-radius: 100%;
     font-size: 100px;
   }

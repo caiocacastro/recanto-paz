@@ -30,7 +30,7 @@ export default function Cataloging() {
         option="Nova gaveta"
         subOption="Cadastre uma nova gaveta no sistema"
         icon={Work}
-        onClick={() => setForm('grave')}
+        onClick={() => setForm('drawer')}
       />
       <CardButton
         option="Nova aquisição"
