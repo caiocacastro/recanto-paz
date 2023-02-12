@@ -52,7 +52,14 @@ export default function Form({ type, onCancel, onSave }: Props) {
         validationSchema = Yup.object({
           descricao: Yup.string(),
           forma_pagamento: Yup.string().required('Campo Obrigatório'),
-          parcelamento: Yup.number().required('Campo Obrigatório'),
+          parcelamento: Yup.number().when(
+            ['forma_pagamento'],
+            (forma_pagamento, schema) => {
+              return forma_pagamento === 'parcelado'
+                ? schema.required('Campo Obrigatório')
+                : schema;
+            }
+          ),
           valor: Yup.number().required('Campo Obrigatório'),
           vendedor: Yup.string().required('Campo Obrigatório'),
         });

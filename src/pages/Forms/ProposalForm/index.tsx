@@ -1,13 +1,16 @@
 import {
   FormControl,
   FormHelperText,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { ValidationError } from 'yup';
 import { users } from '../../../assets/mock';
+import { Tokens } from '../../../model/constants';
 import { FormProps, UserFields } from '../../../model/forms';
 import { FormasPagamento, ProposalFieds } from '../../../model/forms/proposal';
 import { FormSection, FormSubSection, Separator } from '../styled';
@@ -21,10 +24,18 @@ export default function ProposalForm({
   const getUsers = (): UserFields[] => users;
 
   const [loadedUsers, setLoadedUsers] = useState<UserFields[]>([]);
+  const {
+    SmallFieldWidth,
+    MediumFieldWidth,
+    LargeFieldWidth,
+    MediumBottomMargin,
+  } = Tokens;
 
   useEffect(() => {
     setLoadedUsers(getUsers());
   }, []);
+
+  console.log(errors);
 
   return (
     <>
@@ -46,7 +57,7 @@ export default function ProposalForm({
           />
 
           <FormControl
-            style={{ width: '200px', marginBottom: '20px' }}
+            style={{ minWidth: MediumFieldWidth }}
             error={Boolean(errors.forma_pagamento)}
           >
             <InputLabel>Forma de Pagamento</InputLabel>
@@ -69,33 +80,58 @@ export default function ProposalForm({
             )}
           </FormControl>
 
-          {values.forma_pagamento === 'parcelado' && (
-            <TextField
-              id="parcelamento"
-              name="parcelamento"
-              label="Número de parcelas"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.parcelamento}
-              error={Boolean(errors.parcelamento)}
-              helperText={errors.parcelamento && errors.parcelamento}
-            />
-          )}
-
           <TextField
+            style={{ width: MediumFieldWidth }}
             id="valor"
             name="valor"
-            label={`Valor ${
-              values.forma_pagamento === 'parcelado'
-                ? 'das parcelas'
-                : 'da proposta'
-            }`}
+            label="Valor"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">R$</InputAdornment>
+              ),
+            }}
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.valor}
             error={Boolean(errors.valor)}
             helperText={errors.valor && errors.valor}
           />
+
+          {values.forma_pagamento === 'parcelado' && (
+            <FormControl
+              style={{ width: LargeFieldWidth }}
+              error={
+                Boolean(errors.parcelamento) &&
+                Boolean(values.forma_pagamento === 'parcelado')
+              }
+            >
+              <InputLabel>Nro. de Parcelas</InputLabel>
+
+              <Select
+                id="parcelamento"
+                name="parcelamento"
+                label="Nro de parcelas"
+                onChange={handleChange}
+                value={values.parcelamento}
+              >
+                {Array.from({ length: 20 }, (_, i) => i + 1).map((p) => (
+                  <MenuItem
+                    value={p}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                  >
+                    {p} {p !== 1 ? 'vezes' : 'vez'} de R${' '}
+                    {values.valor
+                      ? (values.valor / p).toFixed(2).replace('.', ',')
+                      : '0,00'}
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors.parcelamento && (
+                <FormHelperText>{errors.parcelamento}</FormHelperText>
+              )}
+            </FormControl>
+          )}
         </FormSubSection>
       </FormSection>
 
@@ -106,17 +142,17 @@ export default function ProposalForm({
         <FormSubSection>
           <FormControl
             fullWidth
-            style={{ marginBottom: '20px' }}
-            error={Boolean(errors.forma_pagamento)}
+            style={{ marginBottom: MediumBottomMargin }}
+            error={Boolean(errors.vendedor)}
           >
             <InputLabel>Vendedor da Proposta</InputLabel>
 
             <Select
-              id="forma_pagamento"
-              name="forma_pagamento"
-              label="Slecione o vendedor"
+              id="vendedor"
+              name="vendedor"
+              label="Swlecione o vendedor"
               onChange={handleChange}
-              value={values.forma_pagamento}
+              value={values.vendedor}
             >
               {loadedUsers.map((u) => (
                 <MenuItem
@@ -128,8 +164,8 @@ export default function ProposalForm({
                 </MenuItem>
               ))}
             </Select>
-            {errors.forma_pagamento && (
-              <FormHelperText>{errors.forma_pagamento}</FormHelperText>
+            {errors.vendedor && (
+              <FormHelperText>{errors.vendedor}</FormHelperText>
             )}
           </FormControl>
         </FormSubSection>
