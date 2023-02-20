@@ -1,3 +1,4 @@
+import { Paper } from '@mui/material';
 import styled from 'styled-components';
 import { Theme } from '../../model/style';
 
@@ -55,6 +56,18 @@ export const FormSubSection = styled.div<SubSectionProps>`
   > div {
     margin: 5px;
   }
+`;
+
+export const FormImageSection = styled(FormSubSection)`
+  align-items: center;
+  flex-direction: column;
+`;
+
+export const FileArea = styled(Paper)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 export const FormFields = styled.div`

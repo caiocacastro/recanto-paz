@@ -1,3 +1,4 @@
+import { ContractFields } from '../model/forms';
 import { UserFields } from '../model/forms/user';
 
 export const users: UserFields[] = [
@@ -12,4 +13,8 @@ export const users: UserFields[] = [
     perfil: 'administrador',
     telefone: '61982740740',
   },
+];
+
+export const contracts: ContractFields[] = [
+  { imagem: 'imagem.png', tipo: 'gaveta' },
 ];

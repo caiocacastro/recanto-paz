@@ -47,7 +47,7 @@ export default function ProposalForm({
             name="descricao"
             label="Descrição da Proposta"
             multiline
-            rows={4}
+            rows={6}
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.descricao}

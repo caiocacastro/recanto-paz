@@ -5,6 +5,7 @@ import styled from 'styled-components';
 type Props = {
   buttonTitle: string;
   type: 'back' | 'confirm' | 'delete' | 'remove';
+  hideIcon?: boolean;
   onClick: () => void;
 };
 
@@ -24,8 +25,15 @@ const MuiIcon = styled(Icon)`
   margin-right: 5px;
 `;
 
-export default function Button({ buttonTitle, type, onClick }: Props) {
+export default function Button({
+  buttonTitle,
+  type,
+  onClick,
+  hideIcon,
+}: Props) {
   const renderIcon = () => {
+    if (hideIcon) return;
+
     switch (type) {
       case 'confirm':
         return <Check />;
@@ -44,7 +52,9 @@ export default function Button({ buttonTitle, type, onClick }: Props) {
       onClick={onClick}
       variant={['back', 'remove'].includes(type) ? 'outlined' : 'contained'}
     >
-      <MuiIcon style={{ display: 'flex' }}>{renderIcon()}</MuiIcon>
+      {!hideIcon && (
+        <MuiIcon style={{ display: 'flex' }}>{renderIcon()}</MuiIcon>
+      )}
       {buttonTitle}
     </MuiButton>
   );

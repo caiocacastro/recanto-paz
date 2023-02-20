@@ -11,14 +11,12 @@ import {
 } from '@mui/material';
 import styled from 'styled-components';
 import { ContractFields, Contratos, FormProps } from '../../../model/forms';
-import { FormSection, FormSubSection } from '../styled';
-
-const FileArea = styled(Paper)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
+import {
+  FormImageSection,
+  FormSection,
+  FormSubSection,
+  FileArea,
+} from '../styled';
 
 export default function ContractForm({
   handleChange,
@@ -30,9 +28,7 @@ export default function ContractForm({
   return (
     <>
       <FormSection>
-        <FormSubSection
-          style={{ alignItems: 'center', flexDirection: 'column' }}
-        >
+        <FormImageSection>
           <FileArea
             elevation={0}
             sx={{
@@ -76,7 +72,7 @@ export default function ContractForm({
             </Select>
             {errors.tipo && <FormHelperText>{errors.tipo}</FormHelperText>}
           </FormControl>
-        </FormSubSection>
+        </FormImageSection>
       </FormSection>
     </>
   );

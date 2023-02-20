@@ -67,8 +67,10 @@ export default function Form({ type, onCancel, onSave }: Props) {
       case 'payment':
         initialValues = {} as PaymentFields;
         validationSchema = Yup.object({
-          tipo: Yup.string().required('Campo Obrigatório'),
-          imagem: Yup.string(),
+          contrato: Yup.string().required('Campo Obrigatório'),
+          valor: Yup.number().required('Campo Obrigatório'),
+          data: Yup.date().default(() => new Date()),
+          nota: Yup.string(),
         });
         break;
       case 'contract':
