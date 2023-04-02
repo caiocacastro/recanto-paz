@@ -40,19 +40,17 @@ export const LoginTitle = styled(DialogTitle)`
 export const LoginContent = styled(DialogContent)`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px 0 !important;
+  margin-top: 20px;
 `;
 
 export const LoginField = styled(FormGroup)`
   display: flex;
-  width: 70%;
-  align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin: 20px 0;
 `;
 
 export const LoginLabel = styled(FormLabel)`
   color: ${Theme.primaryDarkColor} !important;
   font-weight: bold !important;
+  padding: 0 20px !important;
 `;

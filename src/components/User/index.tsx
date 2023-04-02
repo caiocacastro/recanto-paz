@@ -11,6 +11,7 @@ import {
 import { RootState } from 'store';
 import { useState } from 'react';
 import Button from '../../components/Button';
+import { Tokens } from '../../model/constants';
 
 const mapStateToProps = ({ session: { user } }: RootState) => ({ user });
 
@@ -29,6 +30,7 @@ const User = ({ user }: Props) => {
         </Component>
         <Component>{user ? user.name : 'Logar'}</Component>
       </Container>
+
       <Dialog
         open={show}
         onClose={() => setShow(!show)}
@@ -39,12 +41,23 @@ const User = ({ user }: Props) => {
         <LoginContent>
           <LoginField row>
             <LoginLabel>Usuário</LoginLabel>
-            <TextField name="usuario" variant="standard" />
+            <TextField
+              name="usuario"
+              variant="standard"
+              placeholder="Digite seu usuário"
+              style={{ width: Tokens.LargeFieldWidth }}
+            />
           </LoginField>
 
           <LoginField row>
             <LoginLabel>Senha</LoginLabel>
-            <TextField name="password" type="password" variant="standard" />
+            <TextField
+              name="password"
+              type="password"
+              variant="standard"
+              placeholder="digite sua senha"
+              style={{ width: Tokens.LargeFieldWidth }}
+            />
           </LoginField>
         </LoginContent>
 
