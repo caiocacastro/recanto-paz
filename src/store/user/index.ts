@@ -2,8 +2,8 @@ import {
   createActionCreators,
   createReducerFunction,
   ImmerReducer,
-} from "immer-reducer";
-import { IUser } from "../../model/user";
+} from 'immer-reducer';
+import { IUser } from '../../model/user';
 
 type State = {
   user?: IUser;

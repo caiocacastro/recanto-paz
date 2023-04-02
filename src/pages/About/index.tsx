@@ -1,5 +1,5 @@
-import { Container } from "./styled";
+import { Container } from '../styled';
 
 export default function About() {
-  return <Container>ABOUT</Container>;
+  return <Container>Pagina sobre a Empresa</Container>;
 }

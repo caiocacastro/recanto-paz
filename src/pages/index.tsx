@@ -1,29 +1,25 @@
-import Topbar from "../components/Topbar";
-import styled from "styled-components";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import About from "./About";
-import Home from "./Home";
+import Topbar from '../components/Topbar';
+import styled from 'styled-components';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { mappedTabRoute } from '../model/pages';
+import React, { createElement } from 'react';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
+  /* margin-top: 60px; */
+  height: 100vh;
 `;
 
 export default function App() {
-  // let navigate = useNavigate();
-
-  const handleNavigate = (route: string) => {
-    // navigate(route);
-  };
-
   return (
     <BrowserRouter>
       <Topbar />
       <Container>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          {Object.entries(mappedTabRoute).map(([r, { path, comp }]) => (
+            <Route path={path} element={createElement(comp)} />
+          ))}
         </Routes>
       </Container>
     </BrowserRouter>
