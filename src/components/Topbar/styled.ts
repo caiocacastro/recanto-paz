@@ -41,20 +41,31 @@ type CustomButtomProps = {
   selected?: boolean;
 };
 
-export const CustomButtom = styled(Button)<CustomButtomProps>`
-  opacity: 0.5;
+export const CustomButtom = styled.div<CustomButtomProps>`
+  /* opacity: 0.5; */
+  /* border-bottom: 2px !important;
+  border-color: ${Theme.secondaryDarkColor} !important;
+  border-style: solid !important; */
+  transition: 0.2s all ease !important;
+  display: flex;
+  align-items: center;
+  color: ${Theme.primaryLightColor};
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 20px;
+
+  border-bottom: 2px solid;
+  border-color: transparent;
 
   ${({ selected }) =>
     selected &&
     `
     background: linear-gradient(0deg, ${Theme.secondaryLightColor}a1, #00000000 50%);
     border-radius: 0px !important;
-    border-bottom: 2px !important;
-    border-style: solid !important;
+    border-color: ${Theme.primaryLightColor};
     opacity: 1;
     `}
-
-  transition: 0.2s all ease !important;
 
   :hover {
     ${({ selected }) => !selected && `opacity: 0.8`};

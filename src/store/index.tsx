@@ -1,4 +1,4 @@
-import { UserReducer } from "./user";
+import { UserReducer } from './user';
 
 export const sessionReducers = {
   user: UserReducer,

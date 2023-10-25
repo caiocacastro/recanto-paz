@@ -1,3 +1,5 @@
+import { useReducer } from 'react';
+
 import {
   Container,
   Separator,
@@ -9,13 +11,23 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import User from '../../components/User';
 import SiteIcon from '../../components/SiteIcon';
 import { mappedTabRoute, Page } from '../../model/pages';
+import { UserReducer } from '../../store/user';
 
-export default function Topbar() {
+const Topbar = () => {
+  const [state, dispatch] = useReducer(UserReducer, {});
   let nav = useNavigate();
   let location = useLocation();
 
   const goTo = (route: Page) => {
     nav(mappedTabRoute[route].path);
+  };
+
+  const getTabs = () => {
+    if (!state.user?.email)
+      return Object.entries(mappedTabRoute).filter(
+        (tab) => (tab as unknown as Page) !== 'CATALOGING'
+      );
+    return Object.entries(mappedTabRoute);
   };
 
   return (
@@ -25,7 +37,7 @@ export default function Topbar() {
 
         <Separator first />
 
-        {Object.entries(mappedTabRoute).map(([entry, { name, path }]) => [
+        {getTabs().map(([entry, { name, path }]) => [
           <Button
             selected={location.pathname === path}
             onClick={() => goTo(entry as Page)}
@@ -38,4 +50,6 @@ export default function Topbar() {
       <User />
     </Container>
   );
-}
+};
+
+export default Topbar;

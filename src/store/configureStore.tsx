@@ -1,22 +1,21 @@
-import { combineReducers, configureStore, Reducer } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
-import sessionStorage from "redux-persist/lib/storage/session";
-import localStorage from "redux-persist/lib/storage";
+import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import sessionStorage from 'redux-persist/lib/storage/session';
+import localStorage from 'redux-persist/lib/storage';
 
-import { RootState, localReducers, sessionReducers } from ".";
-import session from "redux-persist/lib/storage/session";
+import { RootState, localReducers, sessionReducers } from '.';
 
 const rootReducer = combineReducers({
   local: persistReducer(
     {
       storage: localStorage,
-      key: "local",
+      key: 'local',
     },
     combineReducers(localReducers)
   ),
   session: persistReducer(
     {
-      key: "session",
+      key: 'session',
       storage: sessionStorage,
     },
     combineReducers(sessionReducers)
