@@ -4,11 +4,16 @@ import {
   IconButtonProps,
   TextField,
   TextFieldProps,
-} from "@mui/material";
-import styled from "styled-components";
+} from '@mui/material';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   margin: 4px 0px;
+  display: flex;
+  justify-content: center;
+  /* position: absolute;
+  bottom: 20px;
+  left: 20px; */
 `;
 
 export const Content = styled.div`
@@ -71,7 +76,7 @@ export const Login = styled.div`
 `;
 
 export const LogoTitle = styled.span`
-  font-family: "Varela Round";
+  font-family: 'Varela Round';
   font-weight: bold;
   font-size: 24px;
   margin-bottom: 20px;

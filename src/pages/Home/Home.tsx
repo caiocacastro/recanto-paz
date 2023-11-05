@@ -1,14 +1,18 @@
-import { HomeConfigInterface } from "./Home.interfaces";
+import { useContext } from 'react';
+import { MyGlobalContext } from '../../hooks/globalContext';
 
-const Home = ({ logged: isAuth, users }: HomeConfigInterface) => {
-  if (!isAuth) return <>Please log in</>;
-  return users?.map((user) => (
+const Home = () => {
+  const { logged } = useContext(MyGlobalContext);
+
+  if (!logged) return <>Please log in</>;
+
+  return (
     <p>
-      <div>[{user.id}]</div>
-      <div>{user.nome}</div>
-      <div>{user.email}</div>
+      <div>[{logged.id}]</div>
+      <div>{logged.nome}</div>
+      <div>{logged.email}</div>
     </p>
-  ));
+  );
 };
 
 export default Home;

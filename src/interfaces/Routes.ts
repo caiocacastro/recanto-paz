@@ -1,7 +1,7 @@
-import { RouteObject } from "react-router-dom";
+import { RouteObject } from 'react-router-dom';
 
 export type SystemRoutes = RouteObject & {
-  needsAuth?: boolean;
+  needsAuthentication?: boolean;
   path: string;
   label: string;
 };
