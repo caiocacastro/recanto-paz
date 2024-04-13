@@ -11,6 +11,7 @@ const Home = () => {
       <div>[{logged.id}]</div>
       <div>{logged.nome}</div>
       <div>{logged.email}</div>
+      <div>{logged.perfil}</div>
     </p>
   );
 };
