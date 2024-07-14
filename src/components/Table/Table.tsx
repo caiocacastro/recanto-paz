@@ -1,47 +1,58 @@
 import {
+  IconButton,
   Table as MuiTable,
   Paper,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Toolbar,
   Typography,
 } from '@mui/material';
-import { TableProps, TableElement } from './Table.interfaces';
+import { TableProps } from './Table.interfaces';
+import { Cell, HeaderCell, Title } from './Table.styles';
+import { Delete, DeleteOutline, Edit, EditOff } from '@mui/icons-material';
 
 const Table = ({ tableData }: TableProps) => {
   const renderTableTitle = () => (
-    <Toolbar>
+    <Title>
       <Typography>{tableData.tableTitle}</Typography>
-    </Toolbar>
+    </Title>
   );
 
   const renderTableHead = () => (
     <TableHead>
       <TableRow>
         {tableData.tableHader.map((row) => (
-          <TableCell>{row.value}</TableCell>
+          <HeaderCell>{row.value}</HeaderCell>
         ))}
       </TableRow>
     </TableHead>
   );
 
-  const handleClick = (line: TableElement) => {
-    line.click?.();
-  };
+  // const handleClick = (line: TableElement) => {
+  //   line.click?.();
+  // };
 
   const renderTableBody = () => {
     return (
       <TableBody>
         {tableData.tableLines.map((line) => (
           <TableRow>
-            {line.map((cell) => (
-              <TableCell onClick={() => handleClick(cell)}>
-                {cell.value}
-              </TableCell>
+            {line.elements.map((cell) => (
+              <Cell onClick={cell.click}>{cell.value}</Cell>
             ))}
+
+            {/* {(line.onEdit || line.onRemove) && ( */}
+            {/* TODO : Alterar logica de botao para nao clicavel (estilizacao inclusa), se usuário não tem perfil para clique*/}
+            <>
+              <IconButton aria-label="edit" onClick={line.onEdit}>
+                {line.onEdit ? <Edit /> : <EditOff />}
+              </IconButton>
+              <IconButton aria-label="delete" onClick={line.onRemove}>
+                {line.onRemove ? <Delete /> : <DeleteOutline />}
+              </IconButton>
+            </>
+            {/* )} */}
           </TableRow>
         ))}
       </TableBody>

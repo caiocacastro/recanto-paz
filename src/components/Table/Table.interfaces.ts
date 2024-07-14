@@ -7,12 +7,16 @@ export interface TableElement {
 }
 export type TableHead = Pick<TableElement, 'value'>;
 
-export type TableLine = TableElement[];
+export type TableLine = {
+  elements: TableElement[];
+  onEdit?: () => void;
+  onRemove?: () => void;
+};
 
 export interface TableData {
   tableTitle: string;
-  tableLines: TableLine[];
   tableHader: TableHead[];
+  tableLines: TableLine[];
 }
 
 export interface TableProps {
