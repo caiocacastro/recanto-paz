@@ -1,31 +1,38 @@
-import { Snackbar, Alert } from "@mui/material";
-import { useState } from "react";
+import { Alert, Slide, Snackbar } from '@mui/material';
+import { useGlobalContext } from '../../hooks/globalContext';
+import { useEffect } from 'react';
+import { TransitionProps } from '@mui/material/transitions';
 
-interface AlertProps {
-  show: boolean;
-  message: string;
-  type: "error" | "info" | "success" | "warning";
-  onClose?: () => void;
-}
+const SystemMessages = () => {
+  const { systemMessages, setSystemMessages } = useGlobalContext();
+  const DEFAULT_CLOSE_TIME = 2000;
 
-const SystemMessages = ({ message, type, onClose, show }: AlertProps) => {
-  const [open, setOpen] = useState(show);
+  useEffect(() => {
+    const timer = setTimeout(
+      () =>
+        setSystemMessages(systemMessages.slice(0, systemMessages.length - 1)),
+      DEFAULT_CLOSE_TIME
+    );
 
-  const handleClose = () => {
-    setOpen(!open);
-    onClose?.();
-  };
+    return () => clearTimeout(timer);
+  }, [setSystemMessages, systemMessages]);
 
-  return (
+  return systemMessages.map(({ message, type, show = true }) => (
     <Snackbar
-      open={open}
-      onClose={handleClose}
-      autoHideDuration={1000}
-      anchorOrigin={{ horizontal: "center", vertical: "top" }}
+      key={`${message}_${type}`}
+      anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
+      open={show}
+      TransitionComponent={(children) => (
+        <Slide {...children} direction="down" />
+      )}
+      onClose={() => {
+        setSystemMessages(systemMessages.filter((s) => s.message === message));
+        show = false;
+      }}
     >
       <Alert severity={type}>{message}</Alert>
     </Snackbar>
-  );
+  ));
 };
 
 export default SystemMessages;

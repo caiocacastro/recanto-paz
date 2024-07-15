@@ -15,12 +15,12 @@ import {
 import Api from '../../service/api';
 import { HttpStatusCode } from 'axios';
 import { MouseEvent, useContext, useState } from 'react';
-import SystemMessages from '../SystemMessages/SystemMessages';
 import { MyGlobalContext } from '../../hooks/globalContext';
 import { Close } from '@mui/icons-material';
 
 const Account = () => {
-  const { logged, setLogged } = useContext(MyGlobalContext);
+  const { logged, setLogged, setSystemMessages, systemMessages } =
+    useContext(MyGlobalContext);
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -32,27 +32,40 @@ const Account = () => {
     try {
       const ret = await Api.authenticate(user, password);
       if (ret.status === HttpStatusCode.Ok) setLogged(ret.data);
+      setSystemMessages([
+        ...systemMessages,
+        {
+          message: 'Autenticado com sucesso',
+          type: 'success',
+        },
+      ]);
     } catch (e) {
-      setShowError(true);
+      setSystemMessages([
+        ...systemMessages,
+        {
+          message: 'Erro na autenticação. Tente mais tarde',
+          type: 'error',
+        },
+      ]);
     }
   };
 
-  const renderError = () => (
-    <SystemMessages
-      message={'Erro na autenticação. Tente mais tarde'}
-      type="error"
-      onClose={() => setShowError(false)}
-      show={showError}
-    />
-  );
+  // const renderError = () => (
+  //   <SystemMessages
+  //     message={''}
+  //     type="error"
+  //     onClose={() => setShowError(false)}
+  //     show={showError}
+  //   />
+  // );
 
-  const renderSuccess = () => (
-    <SystemMessages
-      message={'Autenticado com sucesso'}
-      type="success"
-      show={true}
-    />
-  );
+  // const renderSuccess = () => (
+  //   <SystemMessages
+  //     message={'Autenticado com sucesso'}
+  //     type="success"
+  //     show={true}
+  //   />
+  // );
 
   const handleAvatarClick = (event: MouseEvent<HTMLDivElement>) => {
     if (logged) {
@@ -76,8 +89,8 @@ const Account = () => {
 
   return (
     <Container>
-      {logged && renderSuccess()}
-      {showError && renderError()}
+      {/* {logged && renderSuccess()} */}
+      {/* {showError && renderError()} */}
 
       <Content onClick={handleAvatarClick}>
         <Avatar sx={{ width: 32, height: 32 }} alt="Faça seu login" />

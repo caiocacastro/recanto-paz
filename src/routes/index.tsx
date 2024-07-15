@@ -4,6 +4,8 @@ import { SystemRoutes } from '../interfaces/Routes';
 import Header from '../components/Header/Header';
 import { MyGlobalContext } from '../hooks/globalContext';
 import { User } from '../interfaces/User';
+import { SystemMessage } from '../interfaces/SystemMessage';
+import SystemMessages from '../components/SystemMessages/SystemMessages';
 
 interface SystemRouteProps {
   routeArray: SystemRoutes[];
@@ -11,6 +13,7 @@ interface SystemRouteProps {
 
 const Pages = ({ routeArray }: SystemRouteProps) => {
   const [logged, setLogged] = useState<User>();
+  const [messages, setMessages] = useState<SystemMessage[]>([]);
 
   const getRoutes = useCallback(
     () =>
@@ -20,7 +23,15 @@ const Pages = ({ routeArray }: SystemRouteProps) => {
 
   return (
     <>
-      <MyGlobalContext.Provider value={{ logged, setLogged }}>
+      <MyGlobalContext.Provider
+        value={{
+          logged,
+          setLogged,
+          systemMessages: messages,
+          setSystemMessages: setMessages,
+        }}
+      >
+        <SystemMessages />
         <Header routeArray={getRoutes()} />
         <Routes>
           {getRoutes().map(({ path, Component }) => (
